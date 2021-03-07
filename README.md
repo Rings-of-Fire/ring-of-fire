@@ -47,3 +47,33 @@ We can use the command line interface to open a channel and push at the same tim
 
 #### Thunderhub
 Thunderhub which is available on MyNode and Umbrel allows for pushing half of the channel value onto the other side of the channel as part of the open. Using Thunderhub to open a channel, the "Push Tokens to Partner" option should be selected with the value "Half". This has the exact same effect as the CLI method for LND above.
+
+
+
+## Migrating a node
+
+If a participant finds the need to migrate the node to another instance. There are 2 ways to do so:
+
+- copy the data folder and keep all channels
+- starting from scratch
+
+For LND, you can find the documentation here: https://github.com/lightningnetwork/lnd/blob/master/docs/safety.md#migrating-a-node-to-a-new-device
+
+## Switching from clearnet to Tor
+
+If the members of the ring opt for Tor only but a participants finds themself still on clearnet, the following guide can be followed for LND:
+https://github.com/lightningnetwork/lnd/blob/master/docs/safety.md#migrating-a-node-from-clearnet-to-tor
+
+## LN Maintenance
+
+### Keep backups
+
+// TODO
+
+### Preventing data corruption
+Sudden blackouts can be devastating to your data. LN nodes are constantly chatting with other nodes, this means they often update their database. If a node is interrupted in the middle of writing data, it might become corrupted. Should this happen, the safest way to recover your funds might only be to close all channels from your channel backup.
+In order to avoid this situation, one should consider plugging a UPS (Uninterruptible Power Supply) inbetween.
+
+Here's a good discussion about it: https://github.com/rootzoll/raspiblitz/issues/263#issue-397855893
+
+If you already have or you are going to purchase a UPS without shutdown signal, you can use the following script as a workaround: https://github.com/Czino/graceful-shutdown
