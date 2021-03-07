@@ -68,7 +68,20 @@ https://github.com/lightningnetwork/lnd/blob/master/docs/safety.md#migrating-a-n
 
 ### Keep backups
 
-// TODO
+Static channel backups can save your funds in case your node crashes and does not recover. Backup regurarily, ideally after each opening and closing of a channel.
+
+#### RTL
+Ride the lightning let's you manually create and restore backups. Just head to `Lightning > Backup` and find the backup/download button. Store the backups in a redundant location
+
+#### Automatic backups
+There are a few scripts you can install to watch the data folder of LND and copy channel backups to another location.
+
+**Your can use this script as a starting point to copy the backup to a different folder. Ideally to an external hard drive that is not used by LND**
+https://gist.github.com/alexbosworth/2c5e185aedbdac45a03655b709e255a3
+
+**Find an adaption of the script above which sends emails after each channel opening/closing**
+https://github.com/Czino/lnd-channel-backup-2-mail
+
 
 ### Preventing data corruption
 Sudden blackouts can be devastating to your data. LN nodes are constantly chatting with other nodes, this means they often update their database. If a node is interrupted in the middle of writing data, it might become corrupted. Should this happen, the safest way to recover your funds might only be to close all channels from your channel backup.
