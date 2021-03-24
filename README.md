@@ -54,9 +54,6 @@ We can use the command line interface to open a channel and push at the same tim
 
 ## The Initial Balancing Act
 
-There are multiple ways to initially balance all channels of the ring.
-
-### The trustless way
 Once the ring is closed (i.e. all channels are opened), one participant can create an invoice of half of the channel capacity. The participant will pay the invoice to themselves by building a route across the ring.
 
 Routes can be manually built by using the following tool
@@ -90,21 +87,6 @@ You can then use the payment hash to plug into the buildroute command
 - `LIST_OF_PUBLIC_KEYS_OF_PEERS`: comma separated list of public keys of peers in order of the position in the ring
 - `OUTGOING_CHAN_ID`: the ID of the outgoing channel you start with
 - `PAYMENT_HASH`: the payment hash of your invoice
-
-### If you can trust
-In order to ensure all channels that form the ring are balanced on inception,, and pushes 50% of the opened capacity to their connected node partner.
-
-#### lncli
-```lncli openchannel --node_key [NODE_PUBLIC_KEY] --local_amt [AMOUNT_IN_SATS] --push_amt [AMOUNT_TO_PUSH] --sat_per_byte [FEE_SATS_PER_VBYTE] --min_confs 0```
-
-- `NODE_PUBLIC_KEY`: the public key of the node of the partner you open the channel to
-- `AMOUNT_IN_SATS`: for example 4000000
-- `AMOUNT_TO_PUSH`: for example 2000000
-- `FEE_SATS_PER_VBYTE`: for example 15
-
-
-#### Thunderhub
-Thunderhub which is available on MyNode and Umbrel allows for pushing half of the channel value onto the other side of the channel as part of the open. Using Thunderhub to open a channel, the "Push Tokens to Partner" option should be selected with the value "Half". This has the exact same effect as the CLI method for LND above.
 
 ## Migrating a node
 
