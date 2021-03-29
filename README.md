@@ -1,5 +1,16 @@
 # Ring of Fire
 
+Lightning is based on cooperation, but it is common that channel openings happen one-sided, (i. e. you are not in direct contact to your channel partner).
+
+To strengthen cooperation and form strong partnerships, we have devised the concept of a ring of nodes, we dub *The Ring of Fire*. It serves as a template to bring node runners together and lift each other up.
+
+## Benefits of participating in a Ring
+
+Working on a common goal forms communities. If complications arise, participants can quickly reach out and receive help.
+
+The connectivity of each node increases significicantly as every other participants adds their channels to the outside.
+
+We also currently investitage how and which data we share within the ring. This insight could give ring operators an edge over the rest of the users within the lightning network.
 
 ## Design
 
@@ -14,7 +25,7 @@ A ring shows the following characteristics:
 - for easier rebalancing a service such as lightningto.me can be in the center of the ring
 - optional: participants within the ring can create shortcuts between each other to make the ring more resilient
 
-## Multiple rings
+### Multiple rings
 Rings can form connections. Preferably, the touchpoints of two rings should be the role of a reliable node runner with high capacity.
 
 ### Questions to answer
@@ -25,15 +36,15 @@ Rings can form connections. Preferably, the touchpoints of two rings should be t
 - What is the order of each participant within the ring?
 - Should the channels be all public or all private?
 
-## How to open channels
+### How to open channels
 
 Once the design is drafted out and each participant is aware of their position within the ring and knows who their partner is, we can start opening channels. Ideally, in coordination and at the same time. To minimise fees, each node opens only one channel to the next.
 
 When all participants of the ring have opened channels, each node retains control of the total value of their opened channel.
 
-### Using LND
+#### Using LND
 
-#### lncli
+##### lncli
 We can use the command line interface to open a channel and push at the same time half of the amount to the next node.
 
 ```lncli openchannel --node_key [NODE_PUBLIC_KEY] --local_amt [AMOUNT_IN_SATS] --sat_per_byte [FEE_SATS_PER_VBYTE] --min_confs 0```
@@ -42,7 +53,7 @@ We can use the command line interface to open a channel and push at the same tim
 - `AMOUNT_IN_SATS`: for example 4000000
 - `FEE_SATS_PER_VBYTE`: for example 15
 
-#### RTL
+##### RTL
 - Navigate to *Lightning > Peers/Channels > Peers*
 - Click on *Add Peer*
 - Paste in the Lightning Address of your peer
@@ -52,15 +63,15 @@ We can use the command line interface to open a channel and push at the same tim
 - choose appropriate fee rate
 - Click on *Open Channel*
 
-## The Initial Balancing Act
+### The Initial Balancing Act
 
 Once the ring is closed (i.e. all channels are opened), one participant can create an invoice of half of the channel capacity. The participant will pay the invoice to themselves by building a route across the ring.
 
 Routes can be manually built by using the following tool
 
-### lncli
+#### lncli
 
-#### Build the route
+##### Build the route
 First test if the route can be built. If a node is offline of the parameters are not correct, you will get informed. If successfull, you will be presented with the information about the payment route, including the fees you will pay.
 
 ```lncli buildroute --amt [AMOUNT_IN_SATS] --hops [LIST_OF_PUBLIC_KEYS_OF_PEERS] --outgoing_chan_id [OUTGOING_CHAN_ID]```
@@ -69,7 +80,7 @@ First test if the route can be built. If a node is offline of the parameters are
 - `LIST_OF_PUBLIC_KEYS_OF_PEERS`: comma separated list of public keys of peers in order of the position in the ring
 - `OUTGOING_CHAN_ID`: the ID of the outgoing channel you start with
 
-#### Pay yourself
+##### Pay yourself
 Create an invoice of half of the channel capacity
 
 Find the payment hash (not to be confused with the invoice)
@@ -88,6 +99,56 @@ You can then use the payment hash to plug into the buildroute command
 - `OUTGOING_CHAN_ID`: the ID of the outgoing channel you start with
 - `PAYMENT_HASH`: the payment hash of your invoice
 
+## Operations within the Ring
+
+### Fee policy
+Fee policies are a tool to directly influence routing behaviour in the network and can be core component for enacting specific strategies.
+
+Fees are an open topic currently but policies will most likely be tailored to each ring depending on participant coun, channel size and common goals. . In most cases fees will be set the same between all the nodes within the ring.
+
+The following strategies have been drafted out so far:
+
+### Act as one big node
+
+Any payment routed within the ring is free of charge. This turns the ring effectively into one big decentralised Lightning Node. Participants still earn routing fees through outgoing/incoming channels.
+
+Advantages:
+- smaller players can band together to mimick big nodes
+ 
+Disadvantages:
+- in comparison to a big node is that payments can require more hops which increases payment time and increase risk of payment failure
+
+Policy:
+- Base fee: 0 mSat
+- Fee rate: 0 mili mSat
+
+### Support micro payments
+We set the base fee to 0 so smaller payments pay relatively less fees (i.e. 10 sats payment is not paying 1 sat / 10% in fees). Instead the flexible fee rate is increased to discourage big payments that can quickly throw channels out of balance.
+
+Advantages:
+- channels can stay balanced longer
+- micropayments are cheaper
+
+Disadvantages:
+- bigger payments can become costly
+
+Policy:
+- Base fee: 0 mSat
+- Fee rate: >50 mili mSat
+
+### Support big payments
+If participants can and want to handle bigger payments, they can set the flexible fee rate lower (and possibly increase the base fees). This enabled larger payments through the ring without adding prohibitive costs.
+
+Advantages:
+- bigger payments are cheaper
+
+Disadvantages:
+- possibly discouraging micro payments
+
+Policy:
+- Base fee: >0 mSat
+- Fee rate: <50 mili mSat
+
 ## Migrating a node
 
 If a participant finds the need to migrate the node to another instance. There are 2 ways to do so:
@@ -102,16 +163,16 @@ For LND, you can find the documentation here: https://github.com/lightningnetwor
 If the members of the ring opt for Tor only but a participants finds themself still on clearnet, the following guide can be followed for LND:
 https://github.com/lightningnetwork/lnd/blob/master/docs/safety.md#migrating-a-node-from-clearnet-to-tor
 
-## LN Maintenance
+### LN Maintenance
 
-### Keep backups
+#### Keep backups
 
 Static channel backups can save your funds in case your node crashes and does not recover. Backup regurarily, ideally after each opening and closing of a channel.
 
-#### RTL
+##### RTL
 Ride the lightning let's you manually create and restore backups. Just head to `Lightning > Backup` and find the backup/download button. Store the backups in a redundant location
 
-#### Automatic backups
+##### Automatic backups
 There are a few scripts you can install to watch the data folder of LND and copy channel backups to another location.
 
 **Your can use this script as a starting point to copy the backup to a different folder. Ideally to an external hard drive that is not used by LND**
