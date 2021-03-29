@@ -112,42 +112,38 @@ The following strategies have been drafted out so far:
 
 Any payment routed within the ring is free of charge. This turns the ring effectively into one big decentralised Lightning Node. Participants still earn routing fees through outgoing/incoming channels.
 
-Advantages:
-- smaller players can band together to mimick big nodes
- 
-Disadvantages:
-- in comparison to a big node is that payments can require more hops which increases payment time and increase risk of payment failure
+| Base fee     | Fee rate|
+| :------------- | :----------: |
+| 0 mSat | 0 mili mSat |
 
-Policy:
-- Base fee: 0 mSat
-- Fee rate: 0 mili mSat
+| Advantages     | Disadvantages|
+| :------------- | :----------: |
+| smaller players can band together to mimick big nodes | in comparison to a big node is that payments can require more hops which increases payment time and increase risk of payment failure   |
+
+
 
 ### Support micro payments
 We set the base fee to 0 so smaller payments pay relatively less fees (i.e. 10 sats payment is not paying 1 sat / 10% in fees). Instead the flexible fee rate is increased to discourage big payments that can quickly throw channels out of balance.
 
-Advantages:
-- channels can stay balanced longer
-- micropayments are cheaper
+| Base fee     | Fee rate|
+| :------------- | :----------: |
+| 0 mSat | >50 mili mSat |
 
-Disadvantages:
-- bigger payments can become costly
-
-Policy:
-- Base fee: 0 mSat
-- Fee rate: >50 mili mSat
+| Advantages     | Disadvantages|
+| :------------- | :----------: |
+| channels can stay balanced longer | bigger payments can become costly |
+| cheap micropayments | |
 
 ### Support big payments
 If participants can and want to handle bigger payments, they can set the flexible fee rate lower (and possibly increase the base fees). This enabled larger payments through the ring without adding prohibitive costs.
 
-Advantages:
-- bigger payments are cheaper
+| Base fee     | Fee rate|
+| :------------- | :----------: |
+| >0 mSat | <50 mili mSat |
 
-Disadvantages:
-- possibly discouraging micro payments
-
-Policy:
-- Base fee: >0 mSat
-- Fee rate: <50 mili mSat
+| Advantages     | Disadvantages|
+| :------------- | :----------: |
+| bigger payments are cheaper | possibly discouraging micro payments |
 
 ## Migrating a node
 
