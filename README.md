@@ -127,7 +127,7 @@ We set the base fee to 0 so smaller payments pay relatively less fees (i.e. 10 s
 
 | Base fee     | Fee rate|
 | :------------- | :----------: |
-| 0 mSat | >50 mili mSat |
+| 0 mSat | >50 mSat |
 
 | Advantages     | Disadvantages|
 | :------------- | :----------: |
@@ -139,7 +139,7 @@ If participants can and want to handle bigger payments, they can set the flexibl
 
 | Base fee     | Fee rate|
 | :------------- | :----------: |
-| >0 mSat | <50 mili mSat |
+| >0 mSat | <50 mSat |
 
 | Advantages     | Disadvantages|
 | :------------- | :----------: |
