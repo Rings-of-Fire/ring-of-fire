@@ -145,6 +145,16 @@ If participants can and want to handle bigger payments, they can set the flexibl
 | :------------- | :----------: |
 | bigger payments are cheaper | possibly discouraging micro payments |
 
+
+## Watchtowers
+
+Lightning Nodes can offer to watch over other nodes' channels. They act as a "second line of defense" for the case your node is offline and another node intends to cheat on you by closing your channel with a wrong balance. A tower that watches over you can then broadcast a "justice transaction" that punished the attacker by sweeping all the funds and returning them to your node.
+
+Because ring participants cooperate closely together, they can set up watch towers for each other.
+
+Follow [the docs](https://github.com/lightningnetwork/lnd/blob/master/docs/watchtower.md) for further information.
+
+
 ## Migrating a node
 
 If a participant finds the need to migrate the node to another instance. There are 2 ways to do so:
