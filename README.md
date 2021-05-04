@@ -8,9 +8,9 @@ To strengthen cooperation and form strong partnerships, we have devised the conc
 
 Working on a common goal forms communities. If complications arise, participants can quickly reach out and receive help.
 
-The connectivity of each node increases significicantly as every other participants adds their channels to the outside.
+The connectivity of each node increases significantly as every other participants adds their channels to the outside.
 
-We also currently investitage how and which data we share within the ring. This insight could give ring operators an edge over the rest of the users within the lightning network.
+We also currently investigate how and which data we share within the ring. This insight could give ring operators an edge over the rest of the users within the lightning network.
 
 ## Design
 
@@ -72,13 +72,20 @@ Routes can be manually built by using the following tool
 #### lncli
 
 ##### Build the route
-First test if the route can be built. If a node is offline of the parameters are not correct, you will get informed. If successfull, you will be presented with the information about the payment route, including the fees you will pay.
+First test if the route can be built. If a node is offline of the parameters are not correct, you will get informed. If successful, you will be presented with the information about the payment route, including the fees you will pay.
 
 ```lncli buildroute --amt [AMOUNT_IN_SATS] --hops [LIST_OF_PUBLIC_KEYS_OF_PEERS] --outgoing_chan_id [OUTGOING_CHAN_ID]```
 
 - `AMOUNT_IN_SATS`: for example 2000000
 - `LIST_OF_PUBLIC_KEYS_OF_PEERS`: comma separated list of public keys of peers in order of the position in the ring
 - `OUTGOING_CHAN_ID`: the ID of the outgoing channel you start with
+
+#### Troubleshooting
+If the route cannot be built an error would be displayed f.e.:
+``[lncli] rpc error: code = Unknown desc = no matching outgoing channel available for node 3 (0219ecc0ab49be9b91c3c302c99a32ddea784f352f329451e2ce7a7dcd461a684a)``
+
+You can check the channel between the node for which the NODE_PUBLIC_KEY is displayed and the next one in line with
+``lncli getchaninfo CHAN_ID
 
 ##### Pay yourself
 Create an invoice of half of the channel capacity
@@ -87,16 +94,23 @@ Find the payment hash (not to be confused with the invoice)
 
 *Find out the payment hash in lncli*
 
-Use the command `lncli listinvoices` and read `r_hash` value of the corresponding invoice.
+Use the command `lncli listinvoices` and read `r_hash` value and `payment_addr` of the corresponding invoice.
 
-You can then use the payment hash to plug into the buildroute command
+*Alternative: create invoice in lncli*
+Use the command   `lnci addinvoice --amt [AMOUNT_IN_SATS] --expiry [TIME_IN_SECONDS]`
 
-```lncli buildroute --amt [AMOUNT_IN_SATS] --hops [LIST_OF_PUBLIC_KEYS_OF_PEERS] --outgoing_chan_id [OUTGOING_CHAN_ID] | lncli sendtoroute --payment_hash=[PAYMENT_HASH] -```
+- `AMOUNT_IN_SATS`: for example 2000000
+- `TIME_IN_SECONDS`: for example 3600 = 1 hour (is default value)
+
+You can then use the payment hash and address to plug into the buildroute command
+
+```lncli buildroute --amt [AMOUNT_IN_SATS] --hops [LIST_OF_PUBLIC_KEYS_OF_PEERS] --outgoing_chan_id [OUTGOING_CHAN_ID] | jq -r '(.route.hops[-1] | .mpp_record) |= {payment_addr:"[PAYMENT_ADDRESS]", total_amt_msat: "[AMOUNT_IN_MILLI_SATS]"}' || lncli sendtoroute --payment_hash=[PAYMENT_HASH] -```
 
 
 - `AMOUNT_IN_SATS`: for example 2000000
 - `LIST_OF_PUBLIC_KEYS_OF_PEERS`: comma separated list of public keys of peers in order of the position in the ring
 - `OUTGOING_CHAN_ID`: the ID of the outgoing channel you start with
+- `PAYMENT_ADDRESS`: the address of your invoice
 - `PAYMENT_HASH`: the payment hash of your invoice
 
 ## Operations within the Ring
@@ -190,7 +204,7 @@ https://github.com/Czino/lnd-channel-backup-2-mail
 
 ### Preventing data corruption
 Sudden blackouts can be devastating to your data. LN nodes are constantly chatting with other nodes, this means they often update their database. If a node is interrupted in the middle of writing data, it might become corrupted. Should this happen, the safest way to recover your funds might only be to close all channels from your channel backup.
-In order to avoid this situation, one should consider plugging a UPS (Uninterruptible Power Supply) inbetween.
+In order to avoid this situation, one should consider plugging a UPS (Uninterruptible Power Supply) in between.
 
 Here's a good discussion about it: https://github.com/rootzoll/raspiblitz/issues/263#issue-397855893
 
