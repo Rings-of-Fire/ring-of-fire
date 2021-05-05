@@ -82,10 +82,12 @@ First test if the route can be built. If a node is offline of the parameters are
 
 #### Troubleshooting
 If the route cannot be built an error would be displayed f.e.:
-``[lncli] rpc error: code = Unknown desc = no matching outgoing channel available for node 3 (0219ecc0ab49be9b91c3c302c99a32ddea784f352f329451e2ce7a7dcd461a684a)``
+
+`[lncli] rpc error: code = Unknown desc = no matching outgoing channel available for node 3 (0219ecc0ab49be9b91c3c302c99a32ddea784f352f329451e2ce7a7dcd461a684a)`
 
 You can check the channel between the node for which the NODE_PUBLIC_KEY is displayed and the next one in line with
-``lncli getchaninfo CHAN_ID
+
+`lncli getchaninfo CHAN_ID`
 
 ##### Pay yourself
 Create an invoice of half of the channel capacity
