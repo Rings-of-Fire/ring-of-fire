@@ -106,7 +106,7 @@ Use the command   `lnci addinvoice --amt [AMOUNT_IN_SATS] --expiry [TIME_IN_SECO
 
 You can then use the payment hash and address to plug into the buildroute command
 
-```lncli buildroute --amt [AMOUNT_IN_SATS] --hops [LIST_OF_PUBLIC_KEYS_OF_PEERS] --outgoing_chan_id [OUTGOING_CHAN_ID] | jq -r '(.route.hops[-1] | .mpp_record) |= {payment_addr:"[PAYMENT_ADDRESS]", total_amt_msat: "[AMOUNT_IN_MILLI_SATS]"}' || lncli sendtoroute --payment_hash=[PAYMENT_HASH] -```
+```lncli buildroute --amt [AMOUNT_IN_SATS] --hops [LIST_OF_PUBLIC_KEYS_OF_PEERS] --outgoing_chan_id [OUTGOING_CHAN_ID] | jq -r '(.route.hops[-1] | .mpp_record) |= {payment_addr:"[PAYMENT_ADDRESS]", total_amt_msat: "[AMOUNT_IN_MILLI_SATS]"}' | lncli sendtoroute --payment_hash=[PAYMENT_HASH] -```
 
 
 - `AMOUNT_IN_SATS`: for example 2000000
