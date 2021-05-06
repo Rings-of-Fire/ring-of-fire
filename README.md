@@ -115,6 +115,9 @@ You can then use the payment hash and address to plug into the buildroute comman
 - `PAYMENT_ADDRESS`: the address of your invoice
 - `PAYMENT_HASH`: the payment hash of your invoice
 
+Fake example:
+`lncli buildroute --amt 12345 --hops 02111eae1137fdeee8ca50633e21b46900ac6af458ef3eaaeadc4efafcd582d613,03672a5118121b4697b0bcf191ea65cc5a925e42b07449ef915a3ea99323a46adb,039dc42f731b519d18278022d321b469e91fbaf586f68ac6c4eeeaa1ccbbf7c739,03e121b469fc86eef047eeeb6102bd06f20bc2d035484bedaf07436b9543b1989 | jq -r '(.route.hops[-1] | .mpp_record) |= {payment_addr:"b717efdd6966f016421b46910ce3b50442a521b4692942fb0fc25022d267bdb", total_amt_msat: "12345000"}' | lncli sendtoroute --payment_hash=69f1521b469a5dd19b17a2932ec21b4699802d7d12c41b78c972dce9ac2f8dd -``
+
 #### Convenient Methods
 
 There are scripts that abstract all of the above away. You can use the following (just make sure you understand the code and verify it does what it is intended to do)
