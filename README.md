@@ -115,6 +115,12 @@ You can then use the payment hash and address to plug into the buildroute comman
 - `PAYMENT_ADDRESS`: the address of your invoice
 - `PAYMENT_HASH`: the payment hash of your invoice
 
+#### Convenient Methods
+
+There are scripts that abstract all of the above away. You can use the following (just make sure you understand the code and verify it does what it is intended to do)
+- [Igniter by RooSoft](https://github.com/RooSoft/igniter)
+- [Ring of Fire Utils by Czino](https://github.com/Czino/ring-of-fire-sharing/tree/multiple-rings-config/utils)
+
 ## Operations within the Ring
 
 ### Fee policy
