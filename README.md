@@ -135,7 +135,7 @@ The following strategies have been drafted out so far:
 
 ### Act as one big node
 
-Any payment routed within the ring is free of charge. This turns the ring effectively into one big decentralised Lightning Node. Participants still earn routing fees through outgoing/incoming channels.
+Any payment routed within the ring is free of charge. This turns the ring effectively into one big decentralised Lightning Node. Participants still earn routing fees through outgoing channels.
 
 | Base fee     | Fee rate|
 | :------------- | :----------: |
