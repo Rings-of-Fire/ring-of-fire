@@ -42,6 +42,9 @@ Once the design is drafted out and each participant is aware of their position w
 
 When all participants of the ring have opened channels, each node retains control of the total value of their opened channel.
 
+Note: to avoid channels being thrown out of balance before the initial balancing acts, ring members can decide to set **defensive fee policies** that make big payments prohibitevely expensive. A decent defensive policy that still allows for route building could be: `100 base / 5,000 ppm`.
+
+
 #### Using LND
 
 ##### lncli
@@ -65,7 +68,10 @@ We can use the command line interface to open a channel and push at the same tim
 
 ### The Initial Balancing Act
 
-Once the ring is closed (i.e. all channels are opened), one participant can create an invoice of half of the channel capacity. The participant will pay the invoice to themselves by building a route across the ring.
+Once the ring is closed (i.e. all channels are opened), one or more participants can create an invoice of half (or a fraction) of the channel capacity. The participant(s) will pay the invoice to themselves by building a route across the ring.
+
+As hinted, this can be done by a single participant or more. If one participant takes over the task, they will send half of the channel capacity. If participants share the task then they send over `½ × channel capacity ÷ no. of participants`. The advantage of sharing the task is to offload the routing fees the members have to pay among each other, reducing the need for trust to be paid back.
+
 
 Routes can be manually built by using the following tool
 
@@ -91,7 +97,6 @@ If the route cannot be built an error would be displayed f.e.:
   ```
 - You can double-check **_the fee policies_** for the channels along the route. If the combined defensive fees that are originally set are too high then the route can also run out of funds when `buildroute` is run.
 
-  A decent defensive policy that still allows for route building could be: `100 base / 5,000 ppm`
 
 ##### Pay yourself
 Create an invoice of half of the channel capacity
