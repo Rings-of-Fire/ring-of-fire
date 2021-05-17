@@ -85,9 +85,13 @@ If the route cannot be built an error would be displayed f.e.:
 
 `[lncli] rpc error: code = Unknown desc = no matching outgoing channel available for node 3 (0219ecc0ab49be9b91c3c302c99a32ddea784f352f329451e2ce7a7dcd461a684a)`
 
-You can check the channel between the node for which the NODE_PUBLIC_KEY is displayed and the next one in line with
+- You can check the channel between the node for which the NODE_PUBLIC_KEY is displayed and the next one in line with
+  ```bash
+  $ lncli getchaninfo CHAN_ID
+  ```
+- You can double-check **_the fee policies_** for the channels along the route. If the combined defensive fees that are originally set are too high then the route can also run out of funds when `buildroute` is run.
 
-`lncli getchaninfo CHAN_ID`
+  A decent defensive policy that still allows for route building could be: `100 base / 5,000 ppm`
 
 ##### Pay yourself
 Create an invoice of half of the channel capacity
