@@ -48,7 +48,7 @@ Note: to avoid channels being thrown out of balance before the initial balancing
 #### Using LND
 
 ##### lncli
-We can use the command line interface to open a channel and push at the same time half of the amount to the next node.
+We can use the command line interface to open a channel to the next node.
 
 ```lncli openchannel --node_key [NODE_PUBLIC_KEY] --local_amt [AMOUNT_IN_SATS] --sat_per_byte [FEE_SATS_PER_VBYTE] --min_confs 0```
 
