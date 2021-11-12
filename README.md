@@ -108,7 +108,7 @@ Find the payment hash (not to be confused with the invoice)
 Use the command `lncli listinvoices` and read `r_hash` value and `payment_addr` of the corresponding invoice.
 
 *Alternative: create invoice in lncli*
-Use the command   `lnci addinvoice --amt [AMOUNT_IN_SATS] --expiry [TIME_IN_SECONDS]`
+Use the command   `lncli addinvoice --amt [AMOUNT_IN_SATS] --expiry [TIME_IN_SECONDS]`
 
 - `AMOUNT_IN_SATS`: for example 2000000
 - `TIME_IN_SECONDS`: for example 3600 = 1 hour (is default value)
