@@ -130,8 +130,9 @@ Fake example:
 #### Convenient Methods
 
 There are scripts that abstract all of the above away. You can use the following (just make sure you understand the code and verify it does what it is intended to do)
-- [Igniter by RooSoft](https://github.com/RooSoft/igniter)
-- [Ring of Fire Terminal by Czino](https://github.com/Czino/ring-of-fire-sharing/tree/gui)
+- [Ringtools](https://github.com/dsbaars/srrof-ringtools-web)
+- [IgniterScript](https://github.com/RooSoft/igniter)
+- [Ring of Fire Terminal](https://github.com/Czino/ring-of-fire-sharing/tree/gui)
 
 ## Operations within the Ring
 
