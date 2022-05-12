@@ -78,7 +78,7 @@ Routes can be manually built by using the following tool
 #### lncli
 
 ##### Build the route
-First test if the route can be built. If a node is offline of the parameters are not correct, you will get informed. If successful, you will be presented with the information about the payment route, including the fees you will pay.
+First test if the route can be built. If a node is offline or the parameters are not correct, you will get informed. If successful, you will be presented with the information about the payment route, including the fees you will pay.
 
 ```lncli buildroute --amt [AMOUNT_IN_SATS] --hops [LIST_OF_PUBLIC_KEYS_OF_PEERS] --outgoing_chan_id [OUTGOING_CHAN_ID]```
 
